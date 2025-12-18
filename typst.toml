@@ -1,0 +1,7 @@
+[package]
+name = "fau-typst"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Abdullah Alzein"]
+license = "MIT"
+description = "A Typst package for presentations at FAU Erlangen-Nürnberg"
