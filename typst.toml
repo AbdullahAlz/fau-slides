@@ -1,0 +1,15 @@
+[package]
+name = "fau-slides"
+version = "0.1.0"
+entrypoint = "fauslides.typ"
+authors = ["Abdullah Alzein"]
+license = "MIT"
+description = "FAU slides template using Polylux"
+repository = "https://github.com/polylux-typ/metropolis"
+keywords = ["fau", "polylux", "referat", "presentation", "slides", "slide", "talk", "lecture"]
+categories = ["presentation"]
+
+[template]
+path = "example"
+entrypoint = "main.typ"
+thumbnail = "view.png"
