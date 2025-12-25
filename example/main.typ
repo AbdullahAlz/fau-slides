@@ -6,7 +6,7 @@
 
 #show: setup.with(
   department: "tech",
-  footer: "FAU-Typst",
+  footer: "FAU-Slides",
   date: datetime(day: 15, month: 12, year: 2025).display("[month repr:long] [day], [year]"),
 )
 

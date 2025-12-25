@@ -1,7 +1,7 @@
 
 #import "@preview/polylux:0.4.0": *
 
-// Mutable Variables - depend on department and provided using setup
+// Mutable Variables depending on department
 #let _primary_color = state("primary", rgb("#002f6c"))
 #let _bg = state("background", "images/fau.png")
 #let _logos = state("logos", (image("images/logo.png"),))
@@ -12,9 +12,8 @@
 #let _sidebar-width = 14.4mm
 #let _line_thick = 2mm
 #let _line_thin = 0.5mm
-#let _header_height = 5mm
 #let _foot_height = 9mm
-#let _fau_header_size = 25pt
+#let _fau_header_font = 25pt
 #let _departments = (
   tech: (color: rgb("#779fb5"), bg: "images/Tech.jpg", name: "Technische Fakultät"),
   rw: (color: rgb("#c8102e"), bg: "images/RW.jpg", name: "Fachbereich Rechtswissenschaft"),
@@ -28,12 +27,12 @@
 #let _get_kennung() = context {
   let d = lower(_department.get())
   let config = _departments.at(d, default: none)
-  set text(size: _fau_header_size)
+  set text(size: _fau_header_font)
   let base = text(stroke: white, "Friedrich-Alexander-Universität\n")
-  
+
   if config != none {
-    let size = config.at("size", default: _fau_header_size)
-    set text(size: size) if size != _fau_header_size
+    let size = config.at("size", default: _fau_header_font)
+    set text(size: size) if size != _fau_header_font
     [#base#text(stroke: white, config.name)]
   } else {
     [#base#text(stroke: white, "Erlangen-Nürnberg")]
@@ -43,7 +42,6 @@
 #let _set_department(d) = {
   let d = lower(d)
   let config = _departments.at(d, default: (color: rgb("#002f6c"), bg: "images/FAU.jpg"))
-  
   _primary_color.update(config.color)
   _bg.update(config.bg)
   _department.update(d)
@@ -93,17 +91,15 @@
     stack(
       dir: rtl,
       image(faulogo, height: 80pt),
-      ..logos.map(logo =>
-        align(horizon, box(
-          height: 50pt,
-          logo,
-        ))
-      ),
+      ..logos.map(logo => align(horizon, box(
+        height: 50pt,
+        logo,
+      ))),
       h(1fr),
       place(
         dx: _sidebar-width,
         dy: -70pt,
-        text(size: 30pt, _get_kennung())
+        text(size: 30pt, _get_kennung()),
       ),
     ),
     line(
@@ -135,7 +131,11 @@
           align(right + horizon, text(size: 1.2em, weight: "bold", fill: primary, [#h(4%) #heading])),
         ),
       ),
-      line(length: page.width - _sidebar-width, start: (_sidebar-width, 0%), stroke: _line_thick + primary.darken(20%).saturate(30%)),
+      line(
+        length: page.width - _sidebar-width,
+        start: (_sidebar-width, 0%),
+        stroke: _line_thick + primary.darken(20%).saturate(30%),
+      ),
     )
   }
 })
@@ -149,11 +149,11 @@
   subtitle: "Subtitle",
   author: "Author¹",
   institution: "¹Institution",
-  date: context _date.get(),
+  
 ) = context {
   let bg = _bg.get()
   let primary = _primary_color.get()
-
+  let date = context _date.get()
   slide[
     #set page(
       header-ascent: -2.2em,
@@ -167,7 +167,7 @@
 
     #text(size: 20pt)[#subtitle]
     #v(20pt)
-    
+
     #set text(size: 16pt)
     #author
     #v(1em)
@@ -189,20 +189,20 @@
 }
 
 #let setup(
-  footer: "Replace this in setup(footer: ...)",
+  footer: "FAU-Slides",
   fill: white,
   font: "Fira Sans",
   math-font: "Fira Math",
   code-font: "Fira Code",
   text-size: 23pt,
-  department: "Tech",
+  department: "FAU",
   date: datetime.today().display(),
   body,
-) =context {
+) = context {
   _set_department(department)
   _date.update(date)
-  
-  let color =  _primary_color.get()
+
+  let color = _primary_color.get()
 
   set page(
     paper: "presentation-16-9",
@@ -211,7 +211,6 @@
     footer: _footer(footer),
     header: _header,
   )
-  
   set text(
     font: font,
     size: text-size,
