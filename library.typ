@@ -4,7 +4,8 @@
 // Mutable Variables depending on department
 #let _primary_color = state("primary", rgb("#002f6c"))
 #let _bg = state("background", "images/fau.png")
-#let _logos = state("logos", (image("images/logo.png"),))
+#let _logos = state("logos", (image("images/fau-text-blue.png"),))
+#let _section_logos = state("section_logos", ())
 #let _date = state("date", datetime.today().display())
 #let _department = state("department", "Tech")
 
@@ -81,9 +82,9 @@
 }
 
 #let _header_bg = context {
-  let faulogo = "images/faulogo.png"
-  let logos = _logos.get()
-  let logos = logos.slice(1)
+  let faulogo = "images/fau-text-white.png"
+  let logos = _section_logos.get()
+  let logos = if logos.len() > 0 { logos } else { _logos.get().slice(1) }
   show: toolbox.full-width-block.with(inset: 1pt)
   stack(
     dir: ttb,
@@ -144,6 +145,10 @@
   _logos.update(logos => logos + (logo,))
 }
 
+#let new-section-logo(logo) = {
+  _section_logos.update(logos => logos + (logo,))
+}
+
 #let top-slide(
   title: "Title",
   subtitle: "Subtitle",
@@ -153,7 +158,7 @@
 ) = context {
   let bg = _bg.get()
   let primary = _primary_color.get()
-  let date = context _date.get()
+  let date = _date.get()
   slide[
     #set page(
       header-ascent: -2.2em,
@@ -189,7 +194,7 @@
 }
 
 #let setup(
-  footer: "FAU-Slides",
+  footer: "FAU Slides",
   fill: white,
   font: "Fira Sans",
   math-font: "Fira Math",
@@ -214,7 +219,7 @@
   set text(
     font: font,
     size: text-size,
-    fill: black,
+    fill: fill.negate(),
   )
   set strong(delta: 100)
   show math.equation: set text(font: math-font)

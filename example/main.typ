@@ -1,18 +1,30 @@
 #import "@preview/polylux:0.4.0": *
 #import "../library.typ": *
 
-#set text(lang: "de")
+// #set text(lang: "de")
+#set text(lang: "en")
 
 
 #show: setup.with(
   department: "tech",
-  footer: "FAU-Slides",
-  date: datetime(day: 15, month: 12, year: 2025).display("[month repr:long] [day], [year]"),
+  fill: white, // main text color is its inverse
+  //font: "Fira Sans",
+  //math-font: "Fira Math",
+  //code-font: "Fira Code",
+  //text-size: 23pt,
+  footer: "FAU Slides",
+  date: datetime(day: 15, month: 05, year: 2026).display("[month repr:long] [day], [year]"),
 )
 
+// Animations are collapsed, comment out to get animated slides
 #enable-handout-mode(true)
 
-#new-logo(image("i5.png"))
+
+#new-logo(image("i4.png", width: 30pt))
+
+// In case you need separate logos for sections and slides (contrast issues)
+// otherwise we default to a single logos list
+#new-section-logo(image("i5.png"))
 
 #top-slide(
   title: "FAU beamer in typst",
@@ -38,8 +50,8 @@
 #slide[
   = Image slide
   #align(center)[
-    #image("i5.png", width: 60%)
-    FAU Computer Science Pattern Recognition Lab (i5)
+    #image("i4.png", width: 40%)
+    FAU Chair of Computer Science for System Software (i4)
   ]
 ]
 
@@ -48,11 +60,12 @@
 
   #table(columns: (50%, 50%), stroke: none)[
     #item-by-item[
-      - This project is never complete
-      - Find errors, missing features and report them
+      - This is constantly WIP
+      - Use and adapt and share
     ]
   ][
     #image("kat.png")
+    #align(center)[Katze aus IntroML]
   ]
 ]
 #section[FIN]
