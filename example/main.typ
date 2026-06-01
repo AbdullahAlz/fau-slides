@@ -38,6 +38,8 @@
 #slide[
   = Overview
   == FAU Beamer by Tim Roith
+  //#uncover(2)[content] reserves space on the slide for later content
+  //#only(2)[content] only takes up needed space on the slides it is shown on 
   #uncover((2, 3))[
     - Uses LaTex
   ]
@@ -61,7 +63,7 @@
   #table(columns: (50%, 50%), stroke: none)[
     #item-by-item[
       - This is constantly WIP
-      - Use and adapt and share
+      - Use, adapt and share
     ]
   ][
     #image("kat.png")
